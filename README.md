@@ -1,1 +1,0 @@
-# Eventtray_frontend
