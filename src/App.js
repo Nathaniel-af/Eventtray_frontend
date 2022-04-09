@@ -9,6 +9,7 @@ import Nav from "./components/Nav";
 import Trending from "./components/Trending";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Home from "./components/home";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -17,7 +18,14 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </UserAuthContextProvider>
     </>
