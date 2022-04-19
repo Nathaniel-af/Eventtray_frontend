@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../img/logo.png";
-
+import { Link } from "react-router-dom";
+import { User } from "../context/Check";
 export default function Nav() {
+  const { Logedin, setLog } = useContext(User);
   return (
     <div>
       <nav className="bg-white py-2 font-nunito">
@@ -41,18 +43,37 @@ export default function Nav() {
                 >
                   Home
                 </a>
+                {Logedin && (
+                  <a
+                    className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
+                    href="/#"
+                  >
+                    Chat
+                  </a>
+                )}
                 <a
                   className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
                   href="/#"
                 >
-                  About Us
+                  {Logedin ? "Social Media" : "About Us"}
                 </a>
               </div>
-              <div className="flex space-x-5">
-                <button className="px-6 py-2 text-base font-semibold text-white bg-amber-500 rounded-full shadow-md hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-amber-200">
-                  Login
-                </button>
-              </div>
+
+              {Logedin ? (
+                <img
+                  alt="profil"
+                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                  className="mx-auto object-cover rounded-full h-14 w-14 border-2 border-amber-400"
+                />
+              ) : (
+                <div className="flex space-x-5">
+                  <Link to="/login">
+                    <button className="px-6 py-2 text-base font-semibold text-white bg-amber-500 rounded-full shadow-md hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-amber-200">
+                      Login
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
             <div className="-mr-2 flex md:hidden">
               <button className="text-gray-800 hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
