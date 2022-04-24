@@ -15,6 +15,10 @@ import Home from "./components/home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { User, UserProvider } from "./context/Check";
 import { useState } from "react";
+import Messenger from "./pages/Messenger";
+import Feed from "./pages/feed";
+import Otp from "./pages/otp";
+import Submit from "./pages/otpverify";
 
 function App() {
   return (
@@ -22,8 +26,12 @@ function App() {
       {/* for fire base login  <UserAuthContextProvider></UserAuthContextProvider> */}
       <UserProvider>
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          {/* <Route path="/" exact element={<Home />} /> */}
+          <Route path="/" exact element={<Otp />} />
+          <Route path="/submit" exact element={<Submit />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/Messenger" element={<Messenger />} />
+          <Route path="/feed" element={<Feed />} />
           {/* <Route path="/signup" element={<Signup />} />
            */}
           {/* <Route

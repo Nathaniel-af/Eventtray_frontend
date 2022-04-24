@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.PhoneInputInput {
+  padding: 10px;
+}
+.bgpic {
+  background-image: url("./img/2\ all.png");
+  background-repeat: no-repeat;
+}

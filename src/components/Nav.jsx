@@ -44,19 +44,19 @@ export default function Nav() {
                   Home
                 </a>
                 {Logedin && (
-                  <a
+                  <Link
                     className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
-                    href="/#"
+                    to="/Messenger"
                   >
                     Chat
-                  </a>
+                  </Link>
                 )}
-                <a
+                <Link
                   className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
-                  href="/#"
+                  to="/feed"
                 >
                   {Logedin ? "Social Media" : "About Us"}
-                </a>
+                </Link>
               </div>
 
               {Logedin ? (
