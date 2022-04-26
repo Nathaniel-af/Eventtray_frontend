@@ -1,5 +1,7 @@
 import React from "react";
 import data from "../data";
+import price from "../img/price.svg";
+import location from "../img/location.svg";
 
 export default function Trending() {
   return (
@@ -19,9 +21,9 @@ export default function Trending() {
                   className="w-full h-full object-center object-cover lg:w-full lg:h-full"
                 />
               </div>
-              <div className="mt-4 flex flex-col items-center">
+              <div className="mt-4 flex flex-col gap-2 py-2 pl-5">
                 <div>
-                  <h3 className="text-sm text-gray-700 uppercase">
+                  <h3 className="text-sm font-bold text-gray-800 uppercase">
                     <a href="#">
                       <span aria-hidden="true" className="absolute inset-0" />
                       {data.Event}
@@ -30,13 +32,24 @@ export default function Trending() {
                 </div>
 
                 <p className="text-sm font-medium text-gray-700">{data.org}</p>
-                <p className="text-sm font-medium text-teal-500  ">
-                  <p className="text-gray-700 inline">Location</p>{" "}
+                <p className="text-sm font-medium   ">
+                  <img
+                    className="h-6 w-6 inline-block"
+                    src={location}
+                    alt="price"
+                  />
                   {data.location}
                 </p>
 
-                <p className="text-sm font-medium text-amber-500">
-                  <p className="text-gray-700 inline">Price</p> {data.price}
+                <p className="text-sm font-medium ">
+                  <p>
+                    <img
+                      className="h-6 w-6 inline-block"
+                      src={price}
+                      alt="price"
+                    />
+                    {data.price}
+                  </p>
                 </p>
               </div>
             </div>

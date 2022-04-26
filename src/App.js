@@ -26,8 +26,8 @@ function App() {
       {/* for fire base login  <UserAuthContextProvider></UserAuthContextProvider> */}
       <UserProvider>
         <Routes>
-          {/* <Route path="/" exact element={<Home />} /> */}
-          <Route path="/" exact element={<Otp />} />
+          <Route path="/" exact element={<Home />} />
+          <Route path="/otp" exact element={<Otp />} />
           <Route path="/submit" exact element={<Submit />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Messenger" element={<Messenger />} />

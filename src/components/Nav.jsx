@@ -67,7 +67,7 @@ export default function Nav() {
                 />
               ) : (
                 <div className="flex space-x-5">
-                  <Link to="/login">
+                  <Link to="/otp">
                     <button className="px-6 py-2 text-base font-semibold text-white bg-amber-500 rounded-full shadow-md hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-amber-200">
                       Login
                     </button>

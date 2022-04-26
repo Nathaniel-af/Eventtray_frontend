@@ -1,12 +1,18 @@
 import React from "react";
+import back from "../img/back_to.svg";
 
 export default function Submit() {
   return (
-    <div className="h-screen bg-gray-200 bgpic flex flex-col justify-center">
+    <div className="relative  h-screen bgpic flex flex-col justify-center">
+      <img
+        className=" absolute top-2 left-2 h-10 m-7 w-10"
+        src={back}
+        alt="back"
+      />
       <div className="container mx-auto">
         <div className="max-w-sm mx-auto border-2  rounded-md shadow-lg md:max-w-lg">
           <div className="w-full">
-            <div className="bg-white h-64 py-3 rounded text-center">
+            <div className="bg-white h-80 py-10 rounded text-center">
               <h1 className="text-2xl font-bold">OTP Verification</h1>
               <div className="flex flex-col mt-4">
                 {" "}
