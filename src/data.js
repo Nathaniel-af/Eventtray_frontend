@@ -37,7 +37,7 @@ export default [
     location: "Online",
     Event: "startup mindset",
     img: "https://img.freepik.com/free-vector/business-startup-concept-with-rocket-bulb-design_1017-33470.jpg?w=740&t=st=1649255325~exp=1649255925~hmac=ae3796c7fbb886fc2e40d5fccdbf381d97d61aeb047dd4fe48fedd9d4747fb70",
-    price: "40 birr",
+    price: "free",
   },
   {
     id: 6,

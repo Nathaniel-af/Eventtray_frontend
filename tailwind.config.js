@@ -1,9 +1,13 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        128: "36rem",
+      },
+    },
     fontFamily: {
-      nunito: ["Nunito"],
+      inter: ["Inter"],
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],

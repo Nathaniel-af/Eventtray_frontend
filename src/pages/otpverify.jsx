@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import back from "../img/back_to.svg";
+import { Link, useNavigate } from "react-router-dom";
+// import { User } from "../context/Check";
 
 export default function Submit() {
+  const navigate = useNavigate();
+  const [value, setValue] = useState("");
   return (
     <div className="relative  h-screen bgpic flex flex-col justify-center">
-      <img
-        className=" absolute top-2 left-2 h-10 m-7 w-10"
-        src={back}
-        alt="back"
-      />
+      <Link to="/otp">
+        <img
+          className=" absolute top-2 left-2 h-10 m-7 w-10"
+          src={back}
+          alt="back"
+        />
+      </Link>
       <div className="container mx-auto">
         <div className="max-w-sm mx-auto border-2  rounded-md shadow-lg md:max-w-lg">
           <div className="w-full">
@@ -29,36 +35,73 @@ export default function Submit() {
                   type="text"
                   id="first"
                   maxlength="1"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setValue(e.target.value);
+                  }}
                 />{" "}
                 <input
                   className="m-2 border h-10 w-10 text-center form-control rounded"
                   type="text"
                   id="second"
                   maxlength="1"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setValue((prev) => {
+                      return `${prev}${e.target.value}`;
+                    });
+                    console.log(value);
+                  }}
                 />{" "}
                 <input
                   className="m-2 border h-10 w-10 text-center form-control rounded"
                   type="text"
                   id="third"
                   maxlength="1"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setValue((prev) => {
+                      return `${prev}${e.target.value}`;
+                    });
+                  }}
                 />{" "}
                 <input
                   className="m-2 border h-10 w-10 text-center form-control rounded"
                   type="text"
                   id="fourth"
                   maxlength="1"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setValue((prev) => {
+                      return `${prev}${e.target.value}`;
+                    });
+                  }}
                 />{" "}
                 <input
                   className="m-2 border h-10 w-10 text-center form-control rounded"
                   type="text"
                   id="fifth"
                   maxlength="1"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setValue((prev) => {
+                      return `${prev}${e.target.value}`;
+                    });
+                  }}
                 />{" "}
                 <input
                   className="m-2 border h-10 w-10 text-center form-control rounded"
                   type="text"
                   id="sixth"
                   maxlength="1"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setValue((prev) => {
+                      return `${prev}${e.target.value}`;
+                    });
+                    console.log(value);
+                    navigate("/");
+                  }}
                 />{" "}
               </div>
               <div className="flex justify-center text-center mt-5">

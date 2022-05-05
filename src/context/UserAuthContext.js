@@ -1,21 +1,31 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
+  getAuth,
+  signInWithPhoneNumber,
   onAuthStateChanged,
+  RecaptchaVerifier,
 } from "firebase/auth";
-import Nav from "../components/Nav";
+
 const userAuthContext = createContext();
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
-  function signUp(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  // function signUp(email, password) {
+  //   return createUserWithEmailAndPassword(auth, email, password);
+  // }
+  // function login(email, password) {
+  //   return signInWithEmailAndPassword(auth, email, password);
+  // }
+  function setUpRecaptcha(value) {
+    const recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {},
+      auth
+    );
+    recaptchaVerifier.render();
+    return signInWithPhoneNumber(auth, value, recaptchaVerifier);
   }
-  function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
-  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -26,7 +36,7 @@ export function UserAuthContextProvider({ children }) {
   }, []);
 
   return (
-    <userAuthContext.Provider value={(user, signUp, login)}>
+    <userAuthContext.Provider value={(user, setUpRecaptcha)}>
       {children}
     </userAuthContext.Provider>
   );

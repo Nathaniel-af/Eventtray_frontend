@@ -1,9 +1,10 @@
 import React from "react";
 import herobg from "../img/herobg.jpg";
+import Alladdisevents from "../img/Alladdisevents.jpg";
 export default function Hero() {
   return (
     <div className="px-5 relative ">
-      <img className=" h-96 object-cover w-full" src={herobg} alt="" />
+      <img className=" h-96 object-cover  w-full" src={Alladdisevents} alt="" />
       <svg
         width="308"
         height="194"
@@ -99,7 +100,7 @@ export default function Hero() {
           </filter>
         </defs>
       </svg>
-      <div className="absolute z-50 space-x-1 h-16 flex justify-center items-center rounded-lg left-0 right-0 mx-auto w-4/5 bg-gray-300 -bottom-10">
+      {/* <div className="absolute z-50 space-x-1 h-12 flex justify-center items-center rounded-lg left-0 right-0 mx-auto w-4/5 bg-gray-300 -bottom-10">
         <div className="relative">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <svg
@@ -167,7 +168,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

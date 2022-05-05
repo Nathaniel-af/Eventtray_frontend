@@ -1,12 +1,19 @@
 import React, { useContext } from "react";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
-import { User } from "../context/Check";
+// import { User } from "../context/Check";
+import home from "../img/home.svg";
+import chat from "../img/chat.svg";
+import discover from "../img/discover.svg";
+import ticket from "../img/ticket.svg";
+import { useUserAuth } from "../context/UserAuthContext";
 export default function Nav() {
-  const { Logedin, setLog } = useContext(User);
+  const user = useUserAuth();
+  console.log(user.uid);
+
   return (
-    <div>
-      <nav className="bg-white py-2 font-nunito">
+    <>
+      <nav className="bg-white sticky top-0 z-50  py-2">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between h-16">
             <div className=" flex items-center space-x-5">
@@ -35,31 +42,46 @@ export default function Nav() {
                 </button>
               </div>
             </div>
-            <div className="flex items-center">
-              <div className="hidden md:block">
-                <a
-                  className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
-                  href="/#"
+            <div className="flex gap-2 items-center">
+              <div className="hidden font-inter gap-4 text-sm md:flex items-center">
+                <Link
+                  className="text-gray-800   hover:text-gray-600  px-3 py-2"
+                  to="/"
                 >
+                  <img className="ml-2" src={ticket} alt="" />
+                  Tickets
+                </Link>
+                <Link
+                  className="text-gray-800   hover:text-gray-600  px-3 py-2"
+                  to="/"
+                >
+                  <img className="ml-1" src={home} alt="" />
                   Home
-                </a>
-                {Logedin && (
+                </Link>
+                {user && (
                   <Link
-                    className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
-                    to="/Messenger"
+                    className="text-gray-800   hover:text-gray-600 p-3  "
+                    to="/Chat" //Messenger
                   >
+                    <img className="ml-1" src={chat} alt="" />
                     Chat
                   </Link>
                 )}
-                <Link
-                  className="text-gray-800  hover:text-gray-600  px-3 py-2 rounded-md text-md font-medium"
-                  to="/feed"
-                >
-                  {Logedin ? "Social Media" : "About Us"}
-                </Link>
+
+                {user ? (
+                  <Link
+                    className="text-gray-800  hover:text-gray-600  px-3 py-2"
+                    to="/feed" //Messenger
+                  >
+                    <img className="ml-2" src={discover} alt="" />
+                    Discover
+                  </Link>
+                ) : (
+                  "About Us"
+                )}
               </div>
 
-              {Logedin ? (
+              {user ? (
                 <img
                   alt="profil"
                   src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
@@ -92,6 +114,6 @@ export default function Nav() {
           </div>
         </div>
       </nav>
-    </div>
+    </>
   );
 }
