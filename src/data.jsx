@@ -1,4 +1,5 @@
-export default [
+import art from "./img/catagories/art.png";
+export let events = [
   {
     id: 1,
     org: "Ashewa Events",
@@ -63,4 +64,28 @@ export default [
     img: "https://img.freepik.com/free-photo/christmas-vintage-rustic-cutlery_1220-5006.jpg?w=740&t=st=1649255377~exp=1649255977~hmac=eb979a1c78e1e71bd6db52a8e38e2bb833c773c9333d96abb8ae6f1aa940ab78",
     price: "200 birr",
   },
+];
+export let catagories = [
+  { cat: "Activities", img: require("./img/catagories/activities.png") },
+  { cat: "Art", img: require("./img/catagories/art.png") },
+  { cat: "Bazar", img: require("./img/catagories/bazaar.png") },
+  { cat: "Business", img: "" },
+  { cat: "Concert", img: "" },
+  { cat: "Conference", img: "" },
+  { cat: "Dance", img: "" },
+  { cat: "Education", img: "" },
+  { cat: "Exhibition", img: "" },
+  { cat: "Expo", img: "" },
+  { cat: "Fashion", img: "" },
+  { cat: "Festival", img: "" },
+  { cat: "Film", img: "" },
+  { cat: "Food", img: "" },
+  { cat: "Fundraiser", img: "" },
+  { cat: "Music", img: "" },
+  { cat: "Online Webinar", img: "" },
+  { cat: "Night Life", img: "" },
+  { cat: "Sports", img: "" },
+  { cat: "Technology", img: "" },
+  { cat: "Travel", img: "" },
+  { cat: "Training", img: "" },
 ];

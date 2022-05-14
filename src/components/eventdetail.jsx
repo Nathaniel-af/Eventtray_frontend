@@ -1,10 +1,10 @@
 import React from "react";
 import Nav from "./Nav";
-import data from "../data";
+import { events } from "../data";
 import price from "../img/price.svg";
 import share from "../img/share.svg";
 import heart from "../img/heart.svg";
-
+import { Link } from "react-router-dom";
 export default function Eventdetail() {
   return (
     <>
@@ -12,13 +12,13 @@ export default function Eventdetail() {
       <div className="relative h-auto bg-gray-300">
         <img
           className="  w-full  object-cover h-96 opacity-70"
-          src={data[4].img}
+          src={events[4].img}
           alt=""
         />
         <div className="absolute top-10 right-40 bg-white w-3/4 h-screen ">
           <div className="flex bg-gray-50">
             <div className="flex-shrink-0">
-              <img className="h-128" src={data[4].img} alt="" />
+              <img className="h-128" src={events[4].img} alt="" />
             </div>
             <div className="flex flex-col gap-10 px-14 py-10">
               <div className="text-gray-400 text-5xl">
@@ -50,9 +50,11 @@ export default function Eventdetail() {
               <img className="h-8 w-10 ml-14" src={heart} alt="" />
             </div>
 
-            <button className="bg-green-500 text-white rounded-lg text-3xl font-semibold px-24 py-3">
-              BUY
-            </button>
+            <Link to="/buy">
+              <button className="bg-green-500 text-white rounded-lg text-3xl font-semibold px-24 py-3">
+                BUY
+              </button>
+            </Link>
           </div>
           <div className="flex py-10 px-5 border-b-2">
             <div className="h-96  w-3/4 bg-gray-600"></div>

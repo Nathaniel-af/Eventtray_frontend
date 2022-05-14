@@ -16,7 +16,7 @@ export default function Otp() {
   const [flag, setFlag] = useState(false);
   const [comfobj, setComfobj] = useState();
   // const { Logedin, setLog } = useContext(User);
-  const setUpRecaptcha = useUserAuth();
+  const { setUpRecaptcha } = useUserAuth();
 
   const verifyOtp = async (e) => {
     e.preventDefault();

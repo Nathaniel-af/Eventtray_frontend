@@ -1,15 +1,9 @@
 // import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-// import Cata from "./components/Cata";
-// import Hero from "./components/Hero";
-// import Login from "./components/Login";
-// import Signup from "./components/Signup";
-// import Nav from "./components/Nav";
-// import Trending from "./components/Trending";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Home from "./components/home";
-// import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 // import { User, UserProvider } from "./context/Check";
 // import { useState } from "react";
 import Messenger from "./pages/Messenger";
@@ -18,6 +12,9 @@ import Otp from "./pages/otp";
 import Submit from "./pages/otpverify";
 import Chat from "./components/Chat";
 import Eventdetail from "./components/eventdetail";
+import Buy from "./components/Buy";
+import CreateAccount from "./components/createaccount";
+import Search from "./components/search";
 
 function App() {
   return (
@@ -30,20 +27,21 @@ function App() {
           <Route path="/Eventdetail" element={<Eventdetail />} />
           <Route path="/otp" element={<Otp />} />
           <Route path="/submit" element={<Submit />} />
+          <Route path="/createaccount" element={<CreateAccount />} />
           {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/Messenger" element={<Messenger />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/search" element={<Search />} />
           {/* <Route path="/signup" element={<Signup />} />
            */}
-          {/* <Route
-            path="/home"
+          <Route
+            path="/buy"
             element={
-              
-               <ProtectedRoute>
-                 <Home />
-               </ProtectedRoute>
+              <ProtectedRoute>
+                <Buy />
+              </ProtectedRoute>
             }
-          /> */}
+          />
         </Routes>
       </UserAuthContextProvider>
     </>

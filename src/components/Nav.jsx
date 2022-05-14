@@ -1,15 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../img/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { User } from "../context/Check";
 import home from "../img/home.svg";
+import about from "../img/about.svg";
 import chat from "../img/chat.svg";
 import discover from "../img/discover.svg";
 import ticket from "../img/ticket.svg";
 import { useUserAuth } from "../context/UserAuthContext";
 export default function Nav() {
-  const user = useUserAuth();
-  console.log(user.uid);
+  const [flag, setFlag] = useState(false);
+  const navigate = useNavigate();
+  const { user, logOut } = useUserAuth();
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logOut();
+      navigate("/");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+  console.log(user);
 
   return (
     <>
@@ -20,7 +32,7 @@ export default function Nav() {
               <a className="flex-shrink-0" href="/">
                 <img className="h-12 w-9" src={logo} alt="Workflow" />
               </a>
-              <div className="  ">
+              <Link to="/search">
                 <button className="rounded-sm flex flex-nowrap  space-x-4 w-full py-1 px-4 bg-gray-200 text-gray-400 shadow text-base focus:outline-none focus:ring-2 focus:ring-amber-500">
                   <svg
                     className="w-6 h-6 "
@@ -40,17 +52,20 @@ export default function Nav() {
                   </svg>
                   <p>Search Person , Organizer , Event</p>
                 </button>
-              </div>
+              </Link>
             </div>
             <div className="flex gap-2 items-center">
               <div className="hidden font-inter gap-4 text-sm md:flex items-center">
-                <Link
-                  className="text-gray-800   hover:text-gray-600  px-3 py-2"
-                  to="/"
-                >
-                  <img className="ml-2" src={ticket} alt="" />
-                  Tickets
-                </Link>
+                {user && (
+                  <Link
+                    className="text-gray-800   hover:text-gray-600  px-3 py-2"
+                    to="/"
+                  >
+                    <img className="ml-2" src={ticket} alt="" />
+                    Tickets
+                  </Link>
+                )}
+
                 <Link
                   className="text-gray-800   hover:text-gray-600  px-3 py-2"
                   to="/"
@@ -77,16 +92,67 @@ export default function Nav() {
                     Discover
                   </Link>
                 ) : (
-                  "About Us"
+                  <Link
+                    className="text-gray-800  hover:text-gray-600  px-3 py-2"
+                    to="/feed" //Messenger
+                  >
+                    <img className="ml-4" src={about} alt="" />
+                    About Us
+                  </Link>
                 )}
               </div>
 
               {user ? (
-                <img
-                  alt="profil"
-                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                  className="mx-auto object-cover rounded-full h-14 w-14 border-2 border-amber-400"
-                />
+                <div>
+                  {" "}
+                  <img
+                    onClick={() => {
+                      setFlag(!flag);
+                    }}
+                    alt="profil"
+                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                    className="mx-auto object-cover rounded-full h-14 w-14 border-2 border-amber-400"
+                  />
+                  <div
+                    className={`origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white  ring-1 ring-black ring-opacity-5 ${
+                      flag ? "block" : "hidden"
+                    }`}
+                  >
+                    <div
+                      className="py-1 "
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="options-menu"
+                    >
+                      <div
+                        className=" block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900  "
+                        role="menuitem"
+                      >
+                        <span className="">
+                          <button>Settings</button>
+                        </span>
+                      </div>
+                      <div
+                        className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 "
+                        role="menuitem"
+                      >
+                        <span className="">
+                          <button>Account</button>
+                        </span>
+                      </div>
+                      <div
+                        className=" block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900  "
+                        role="menuitem"
+                      >
+                        <span className="">
+                          <button className="" onClick={handleLogout}>
+                            Logout{" "}
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <div className="flex space-x-5">
                   <Link to="/otp">
