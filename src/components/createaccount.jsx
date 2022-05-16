@@ -1,48 +1,106 @@
-import React, { useState } from "react";
+import { Formik, Form } from "formik";
+import React from "react";
+import * as yup from "yup";
+import TextField from "./TextField";
 import vector from "../img/Vector.png";
 import logo from "../img/logobig.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 function CreateAccount() {
-  const [menu, setMenu] = useState(false);
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const userSchema = yup.object().shape({
+    username: yup.string().required("Required"),
+    firstname: yup.string().required("Required"),
+    lastname: yup.string().required("Required"),
+    phoneNumber: yup
+      .string()
+      .max(10)
+      .matches(phoneRegExp, "Phone number is not valid"),
+  });
   return (
     <>
       <div className="max-h-screen w-full bg-white flex justify-between">
         <div className="w-1/3 max-h-screen ">
           <div className="flex flex-col items-end py-2 ">
             <img className=" h-24 self-start ml-32" src={logo} alt="" />
-            <div className="flex flex-col gap-8 mt-2 ">
+            <div className="flex flex-col ">
               <h2 className="self-center text-gray-400 text-xl font-semibold">
                 Create account
               </h2>
-              <input
-                className="bg-gray-300 h-10 w-80 rounded-2xl p-5 outline-[#98afd6]"
-                type="text"
-                placeholder="User Name"
-              />
-              <input
-                className="bg-gray-300 h-10 rounded-2xl p-5 outline-[#98afd6]"
-                type="text"
-                placeholder="First Name"
-              />
-              <input
-                className="bg-gray-300 h-10 rounded-2xl p-5 outline-[#98afd6]"
-                type="text"
-                placeholder="Last Name"
-              />
-              <input
-                className="bg-gray-300 h-10 rounded-2xl p-5 outline-[#98afd6]"
-                type="text"
-                placeholder="Phone Number"
-              />
-              <input
-                className="bg-gray-300 h-10 rounded-2xl p-5 outline-[#98afd6]"
-                type="text"
-                placeholder=" "
-              />
-              <button className="bg-[#5995fd] h-10 w-40 self-center rounded-2xl text-white ">
-                SIGN UP
-              </button>
-              <Link className="self-center" to="/otp">
+              <Formik
+                initialValues={{
+                  username: "",
+                  firstname: "",
+                  lastname: "",
+                  phoneNumber: "",
+                }}
+                validationSchema={userSchema}
+                onSubmit={async (values) => {
+                  const data = {
+                    username: values.username,
+                    firstName: values.firstname,
+                    lastName: values.lastname,
+                    phoneNumber: values.phoneNumber,
+                    role: "User",
+                    password: values.phoneNumber,
+                  };
+                  const axiosConfig = {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  };
+                  await axios
+                    .post(
+                      "https://f7e5-196-189-182-8.eu.ngrok.io/api/auth/create/",
+                      data,
+                      axiosConfig
+                    )
+                    .then((response) => {
+                      console.log(response);
+                    })
+                    .catch((e) => {
+                      console.log(e);
+                    });
+                }}
+              >
+                {(formik) => (
+                  <Form className="flex flex-col gap-3">
+                    <TextField
+                      label="User Name"
+                      name="username"
+                      type="text"
+                      placeholder="User Name"
+                    />
+                    <TextField
+                      label="First Name"
+                      name="firstname"
+                      type="text"
+                      placeholder="First Name"
+                    />
+                    <TextField
+                      label="Last Name"
+                      name="lastname"
+                      type="text"
+                      placeholder="Last Name"
+                    />
+                    <TextField
+                      label="Phone Number"
+                      name="phoneNumber"
+                      type="text"
+                      placeholder=" Ex. 09xxxxxxxx"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-[#5995fd] h-10 mt-4 w-40 self-center rounded-2xl text-white "
+                    >
+                      SIGN UP
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+
+              <Link className="self-center mt-3" to="/otp">
                 already have account ? Login
               </Link>
             </div>

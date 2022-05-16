@@ -50,7 +50,7 @@ export default function Eventdetail() {
               <img className="h-8 w-10 ml-14" src={heart} alt="" />
             </div>
 
-            <Link to="/buy">
+            <Link to="/checkout">
               <button className="bg-green-500 text-white rounded-lg text-3xl font-semibold px-24 py-3">
                 BUY
               </button>

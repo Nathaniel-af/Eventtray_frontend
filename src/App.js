@@ -12,9 +12,9 @@ import Otp from "./pages/otp";
 import Submit from "./pages/otpverify";
 import Chat from "./components/Chat";
 import Eventdetail from "./components/eventdetail";
-import Buy from "./components/Buy";
 import CreateAccount from "./components/createaccount";
 import Search from "./components/search";
+import Checkout from "./components/Checkout";
 
 function App() {
   return (
@@ -32,13 +32,14 @@ function App() {
           <Route path="/Messenger" element={<Messenger />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/search" element={<Search />} />
+
           {/* <Route path="/signup" element={<Signup />} />
            */}
           <Route
-            path="/buy"
+            path="/checkout"
             element={
               <ProtectedRoute>
-                <Buy />
+                <Checkout />
               </ProtectedRoute>
             }
           />
