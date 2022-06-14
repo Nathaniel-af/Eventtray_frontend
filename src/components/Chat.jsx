@@ -1,13 +1,13 @@
 import React from "react";
-import send from "../img/send.svg";
 import Nav from "./Nav";
+import { IoMdSend } from "react-icons/io";
 
 export default function Chat() {
   return (
     <>
       <Nav />
       <div className="flex px-20 h-128">
-        <div className=" w-1/2 border-2 rounded-md bg-white ">
+        <div className=" w-[40%] border-2 rounded-md bg-white ">
           <div className="flex  h-20 border-b-2 gap-4 items-center justify-center">
             <img
               src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
@@ -21,7 +21,11 @@ export default function Chat() {
           </div>
         </div>
         {/* chat */}
-        <div class="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl border-2 rounded-lg overflow-hidden">
+        <div class="flex flex-col flex-grow w-[60%]  bg-white shadow-xl border-2 rounded-lg overflow-hidden">
+          <div className="bg-gray-50 border-b-2 h-14 w-full text-center flex items-center justify-center">
+            {" "}
+            Sender name
+          </div>
           <div class="flex flex-col flex-grow h-0 p-4 overflow-auto">
             <div class="flex w-full mt-2 space-x-3 max-w-xs">
               <img
@@ -146,14 +150,14 @@ export default function Chat() {
               <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
             </div>
           </div>
-          <div class="bg-white border-t-2 flex p-4">
+          <div class="bg-white border-t-2 flex p-2">
             <input
-              class="flex items-center outline-none  w-full rounded px-3 text-sm"
+              class="flex items-center outline-none  w-full rounded px-3 text-base"
               type="text"
               placeholder="Type your message…"
             />
             <button>
-              <img className="h-10 w-10" src={send} alt="" />
+              <IoMdSend size={28} />
             </button>
           </div>
         </div>

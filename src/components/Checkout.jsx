@@ -1,33 +1,75 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { MdChevronLeft } from "react-icons/md";
+import { Checkcontxt } from "../context/Check";
+import moment from "moment";
+// import { useAlert } from "react-alert";
 function Checkout() {
+  // const alert = useAlert();
+  const { check } = useParams();
+  const { ticket, details } = Checkcontxt();
+  const [value, SetValue] = useState(1);
+  console.log(ticket);
+  const history = useNavigate();
+  const goback = () => {
+    history(-1);
+  };
+  console.log(check);
+  console.log(details);
+
+  let bigCities = ticket.data.ticket.filter((e) => e.id == check.slice(1));
+  console.log(bigCities);
   return (
     <>
       <div className="flex px-10 bg-stone-700">
         <div className="flex flex-col h-screen w-3/4  bg-white">
-          <div className="text-center border-b-2 border-gray-300 py-8">
-            <h2 className="font-semibold text-lg">
-              Event Title Lorem ipsum, dolor sit amet consectetur adipisicing
-              elit
-            </h2>
+          <div className="text-center border-b-2 border-gray-300 py-8 px-2">
+            <MdChevronLeft
+              className="text-white bg-gray-800 rounded-full cursor-pointer"
+              size={24}
+              onClick={goback}
+            />
+            <h2 className="font-semibold text-lg">{bigCities[0].eventName}</h2>
             <p className="text-gray-400">
-              sat ,Jun 4 , 2022 5:00 PM - 10:00 PM
+              {moment(new Date(details.data.events.eventStartDate)).format(
+                "MMMM d, YYYY"
+              )}{" "}
+            </p>
+            <p className="text-gray-400">
+              {" "}
+              {` ${details.data.events.eventStartTime}-${details.data.events.eventEndTime}`}
             </p>
           </div>
           <div className="border-b-2 border-gray-300 py-10 flex justify-around">
             <span className="flex flex-col gap-1 font-light">
               <h2 className="font-semibold text-gray-700 text-base mb-3">
-                Event Name JUNE 4
+                {bigCities[0].eventName} <p className="inline">-</p>
+                {moment(new Date(details.data.events.eventStartDate)).format(
+                  "MMMM d"
+                )}
               </h2>
-              <p>$55.00 + $4.23</p>
-              <p>Sales end on Jun 3,2022</p>
-              <p>Venue - Bole</p>
-              <p>Jun 4,2022 5:00 PM - 10:00 PM</p>
+              <p>${bigCities[0].price}</p>
+              <p>Sales end on Jun {}</p>
+              <p>Venue - {details.data.events.venue}</p>
+              <p>
+                {moment(new Date(details.data.events.eventStartDate)).format(
+                  "MMMM d, YYYY"
+                )}{" "}
+              </p>
+              <p>
+                {" "}
+                {` ${details.data.events.eventStartTime}-${details.data.events.eventEndTime}`}
+              </p>
             </span>
 
             <select
+              defaultValue={1}
               className="h-10 w-14 px-2 border-2 border-[#5995fd] bg-white rounded-md"
               name="amount"
+              value={value}
+              onChange={(e) => {
+                SetValue(e.target.value);
+              }}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -41,7 +83,13 @@ function Checkout() {
               <option value="10">10</option>
             </select>
           </div>
-          <button className="bg-amber-600 w-1/3 p-5 self-center text-white mt-10 rounded-md">
+          <button
+            className="bg-amber-600 w-1/3 p-5 self-center text-white mt-10 rounded-md"
+            onClick={() => {
+              /*  */
+              // alert.show("Oh look, an alert!");
+            }}
+          >
             {" "}
             CHECK OUT
           </button>
@@ -49,31 +97,33 @@ function Checkout() {
         <div className="flex flex-col w-1/3 h-screen bg-gray-200">
           <img
             className="h-60 object-fill"
-            src="https://img.freepik.com/free-vector/business-startup-concept-with-rocket-bulb-design_1017-33470.jpg?w=740&t=st=1649255325~exp=1649255925~hmac=ae3796c7fbb886fc2e40d5fccdbf381d97d61aeb047dd4fe48fedd9d4747fb70"
+            src={`https://eventtray-api.herokuapp.com${bigCities[0].image}`}
             alt=""
           />
           <div className="px-10 py-10 flex flex-col gap-3 ">
             <h2 className="font-semibold text-lg">Order Summary</h2>
             <div className="flex flex-col border-b-2 border-gray-400 py-5 gap-2    ">
               <span className="flex justify-between">
-                <p>1 x Event name</p>
-                <p>$55.00</p>
+                <p>
+                  {value} x {bigCities[0].eventName}
+                </p>
+                <p>${value * bigCities[0].price}</p>
               </span>
               <p>JUNE 4</p>
             </div>
             <div className="flex flex-col border-b-2 border-gray-400 py-5 gap-2 ">
               <span className="flex justify-between">
                 <p>Subtotal</p>
-                <p>$55.00</p>
+                <p>${value * bigCities[0].price}</p>
               </span>
               <span className="flex justify-between">
-                <p>Fees</p>
-                <p>$4.23</p>
+                <p>Tax</p>
+                <p>$ 0.00</p>
               </span>
             </div>
             <span className="flex justify-between font-semibold">
               <p>Total</p>
-              <p>$59.23</p>
+              <p>${value * bigCities[0].price}</p>
             </span>
           </div>
         </div>

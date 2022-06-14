@@ -1,8 +1,16 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useContext } from "react";
 
 const User = createContext();
-const UserProvider = ({ children }) => {
-  const [Logedin, setLog] = useState(false);
-  return <User.Provider value={{ Logedin, setLog }}>{children}</User.Provider>;
+export const TicketProvider = ({ children }) => {
+  const [ticket, setTicket] = useState();
+  const [details, setDetail] = useState();
+  return (
+    <User.Provider value={{ ticket, setTicket, details, setDetail }}>
+      {children}
+    </User.Provider>
+  );
 };
-export { User, UserProvider };
+
+export function Checkcontxt() {
+  return useContext(User);
+}

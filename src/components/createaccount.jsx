@@ -4,9 +4,10 @@ import * as yup from "yup";
 import TextField from "./TextField";
 import vector from "../img/Vector.png";
 import logo from "../img/logobig.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 function CreateAccount() {
+  const navigate = useNavigate();
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const userSchema = yup.object().shape({
@@ -52,15 +53,16 @@ function CreateAccount() {
                   };
                   await axios
                     .post(
-                      "https://f7e5-196-189-182-8.eu.ngrok.io/api/auth/create/",
+                      `${process.env.REACT_APP_API}auth/create/`,
                       data,
                       axiosConfig
                     )
                     .then((response) => {
                       console.log(response);
+                      navigate("/otp");
                     })
                     .catch((e) => {
-                      console.log(e);
+                      console.log(e.response.data.message);
                     });
                 }}
               >

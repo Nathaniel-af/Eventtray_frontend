@@ -12,11 +12,11 @@ export default function Cata() {
   };
 
   return (
-    <div className="px-8 mt-16 text-2xl  text-white font-extrabold relative group  ">
-      <p className="text-black">Catagories</p>
+    <div className="px-6 mt-16 text-2xl  text-white font-extrabold relative group  ">
+      <p className="text-black px-6">Catagories</p>
       <div
         id="slider"
-        className="flex items-center h-64 mt-5 justify-between gap-5 w-[100%] overflow-x-scroll scroll-smooth scrollbar-hide "
+        className="flex items-center h-64 mt-5 justify-between gap-5 w-[100%] overflow-x-scroll scroll-smooth scrollbar-hide rounded-3xl"
       >
         <MdChevronLeft
           onClick={slideLeft}
@@ -33,7 +33,7 @@ export default function Cata() {
               <img
                 className="h-32 w-36 group-1-hover:scale-110"
                 src={cata.img}
-                alt=""
+                alt={cata.cat}
               />
             </div>
           );

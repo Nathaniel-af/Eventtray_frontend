@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 // import { User } from "../context/Check";
@@ -7,25 +7,46 @@ import about from "../img/about.svg";
 import chat from "../img/chat.svg";
 import discover from "../img/discover.svg";
 import ticket from "../img/ticket.svg";
-import { useUserAuth } from "../context/UserAuthContext";
+// import { useUserAuth } from "../context/UserAuthContext";
+import axios from "axios";
 export default function Nav() {
   const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
-  const { user, logOut } = useUserAuth();
-  const handleLogout = async (e) => {
+  // const { user, logOut } = useUserAuth();   // firebase
+  useEffect(() => {
+    async function callapi() {
+      try {
+        if (user && user.data.token) {
+          await axios
+            .get(`${process.env.REACT_APP_API}user/profile`, {
+              headers: { Authorization: `token ${user.data.token}` },
+            })
+            .then((res) => {
+              localStorage.setItem("profile", JSON.stringify(res.data));
+            });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    callapi();
+  }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const pp = JSON.parse(localStorage.getItem("profile")).user.profilePicture;
+  console.log(pp);
+  const handleLogout = (e) => {
     e.preventDefault();
     try {
-      await logOut();
+      localStorage.removeItem("user");
       navigate("/");
     } catch (err) {
       console.log(err.message);
     }
   };
-  console.log(user);
 
   return (
     <>
-      <nav className="bg-white sticky top-0 z-50  py-2">
+      <nav className="bg-white sticky top-0 z-50 h-[72px] py-2">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between h-16">
             <div className=" flex items-center space-x-5">
@@ -73,25 +94,8 @@ export default function Nav() {
                   <img className="ml-1" src={home} alt="" />
                   Home
                 </Link>
-                {user && (
-                  <Link
-                    className="text-gray-800   hover:text-gray-600 p-3  "
-                    to="/Chat" //Messenger
-                  >
-                    <img className="ml-1" src={chat} alt="" />
-                    Chat
-                  </Link>
-                )}
 
-                {user ? (
-                  <Link
-                    className="text-gray-800  hover:text-gray-600  px-3 py-2"
-                    to="/feed" //Messenger
-                  >
-                    <img className="ml-2" src={discover} alt="" />
-                    Discover
-                  </Link>
-                ) : (
+                {!user && (
                   <Link
                     className="text-gray-800  hover:text-gray-600  px-3 py-2"
                     to="/feed" //Messenger
@@ -110,8 +114,8 @@ export default function Nav() {
                       setFlag(!flag);
                     }}
                     alt="profil"
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                    className="mx-auto object-cover rounded-full h-14 w-14 border-2 border-amber-400"
+                    src={`https://eventtray-api.herokuapp.com${pp}`}
+                    className="mx-auto object-cover rounded-full h-12 w-12 border-2 border-amber-400"
                   />
                   <div
                     className={`origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white  ring-1 ring-black ring-opacity-5 ${
@@ -129,7 +133,9 @@ export default function Nav() {
                         role="menuitem"
                       >
                         <span className="">
-                          <button>Settings</button>
+                          <Link to={"/editprofile"}>
+                            <button>Settings</button>
+                          </Link>
                         </span>
                       </div>
                       <div
@@ -137,7 +143,9 @@ export default function Nav() {
                         role="menuitem"
                       >
                         <span className="">
-                          <button>Account</button>
+                          <Link to={"/profile"}>
+                            <button>Account</button>
+                          </Link>
                         </span>
                       </div>
                       <div
@@ -158,6 +166,11 @@ export default function Nav() {
                   <Link to="/otp">
                     <button className="px-6 py-2 text-base font-semibold text-white bg-amber-500 rounded-full shadow-md hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-amber-200">
                       Login
+                    </button>
+                  </Link>
+                  <Link to="/createaccount">
+                    <button className="px-6 py-2 text-base font-semibold text-white bg-amber-500 rounded-full shadow-md hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-amber-200">
+                      Signup
                     </button>
                   </Link>
                 </div>

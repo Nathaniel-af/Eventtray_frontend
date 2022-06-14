@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import search from "../img/search.png";
 import { BsSearch } from "react-icons/bs";
 import { TiLocation } from "react-icons/ti";
+import Helmet from "react-helmet";
+import axios from "axios";
 
 function Search() {
   const [value, setValue] = useState();
   const [location, setLocation] = useState();
-
+  useEffect(() => {
+    async function callapi() {
+      await axios
+        .get(
+          `${process.env.REACT_APP_API}user/event/list-published/?searchBy=?id=${value}`
+        )
+        .then((res) => {
+          setLocation(res);
+        });
+    }
+  }, []);
   return (
     <>
+      <Helmet>
+        <title>Search</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <div className="flex ">
         <div className={`w-3/4 flex flex-col gap-5 p-10 `}>
           <div>
@@ -58,6 +74,7 @@ function Search() {
           </div>
           {/*  */}
         </div>
+        {value && <div className="h-20 font-extrabold w-auto">{location}</div>}
         <img className={`h-screen ${value && "hidden"}`} src={search} alt="" />
       </div>
     </>

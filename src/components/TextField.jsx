@@ -7,7 +7,7 @@ function TextField({ label, ...props }) {
     <div>
       <label htmlFor={field.name}>{label}</label>
       <input
-        className={`bg-gray-200 h-10 w-80 rounded-2xl p-5 outline-[#98afd6] block ${
+        className={`bg-gray-200 h-12 w-80 rounded-2xl p-5 outline-[#98afd6] block ${
           meta.touched && meta.error && "ring-red-500 ring-2"
         }`}
         autoComplete="off"
